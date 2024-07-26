@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>City Landmark Pictures</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #landmarks {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .landmark {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: calc(33% - 20px);
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .landmark img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search for City Landmark Pictures</h1>
+    <label for="city">Enter city name: </label>
+    <input type="text" id="city" />
+    <button onclick="getLandmarkPictures()">Search</button>
+
+    <div id="landmarks"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

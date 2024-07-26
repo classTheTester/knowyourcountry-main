@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flight Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #flights {
+            margin-top: 20px;
+        }
+        .flight {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search for Flights</h1>
+    <label for="country">Enter destination country: </label>
+    <input type="text" id="country" />
+    <button onclick="searchFlights()">Search</button>
+
+    <div id="flights"></div>
+
+    <script>
+        function searchFlights() {
+            const country = document.getElementById('country').value;
+            fetch(`http://localhost:3000/api/flights?country=${country}`)
+                .then(response => response.json())
+                .then(data => {
+                    const flightsDiv = document.getElementById('flights');
+                    flightsDiv.innerHTML = '';
+
+                    if (data.Quotes && data.Quotes.length > 0) {
+                        data.Quotes.forEach(quote => {
+                            const outboundDate = new Date(quote.OutboundLeg.DepartureDate);
+                            const inboundDate = new Date(quote.InboundLeg.DepartureDate);
+                            const flightDiv = document.createElement('div');
+                            flightDiv.className = 'flight';
+                            flightDiv.innerHTML = `
+                                <p>Departure: ${outboundDate.toLocaleString()}</p>
+                                <p>Return: ${inboundDate.toLocaleString()}</p>
+                                <p>Price: ${quote.MinPrice} ${data.Currencies[0].Symbol}</p>
+                            `;
+                            flightsDiv.appendChild(flightDiv);
+                        });
+                    } else {
+                        flightsDiv.innerHTML = '<p>No flights found.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching flights:', error);
+                    flightsDiv.innerHTML = '<p>Error fetching flights. Please try again later.</p>';
+                });
+        }
+    </script>
+</body>
+</html>

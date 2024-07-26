@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Current Time by Country</title>
+</head>
+<body>
+    <h1>Get Current Time by Country</h1>
+    <label for="country">Enter Country Time Zone</label>
+    <input type="text" id="countryName">
+    <button onclick="handleButtonClick()">Get Time</button>
+    
+    <img id="flagImage" src="">
+    <p id="regionCapital"></p>
+    <p id="capitalTime"></p>
+
+    
+    <script src="script.js"></script>
+    <script>
+        document.getElementById("capitalTime").innerHTML = new Date().toLocaleDateString("en-US", { timeZone: 'Asia/Kolkata', timeStyle: 'full', hourCycle: 'h24' });
+    </script>
+</body>
+</html>
+
+
